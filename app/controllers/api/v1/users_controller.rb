@@ -1,4 +1,5 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :set_user, only: %i[show update destroy]
   def show 
     render json: User.find(params[:id])
   end
@@ -22,6 +23,11 @@ class Api::V1::UsersController < ApplicationController
 
     end
 
+  end
+
+  def destroy 
+    @user.destroy
+    head 204
   end
 
   private 
