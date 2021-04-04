@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
  #Api definition
  namespace :api, defaults: {format: :json}  do 
-  
- end 
-  
+  namespace :v1 do 
+
+  end
+ end
+
 end
