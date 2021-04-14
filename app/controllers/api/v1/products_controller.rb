@@ -4,7 +4,7 @@ class Api::V1::ProductsController < ApplicationController
   before_action :check_login, only: %i[create]
   
   def index 
-    @products = Product.all
+    @products = Product.search(params)
     render json: ProductSerializer.new(@products).serializable_hash
   end
   def show 
