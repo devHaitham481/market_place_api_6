@@ -3,13 +3,14 @@ class Order < ApplicationRecord
   belongs_to :user
   validates :total, numericality: {greater_than_or_equal_to: 0}
   validates :total, presence: true
-  validates_with EnoughProductValidator
+  validates_with EnoughProductsValidator
   has_many :placements, dependent: :destroy
   has_many :products, through: :placements
 
 
   def set_total!
-    self.total = products.map(&:price).sum #products.map(&:price) is the same as |price| product.price
+   # self.total = products.map(&:price).sum #products.map(&:price) is the same as |price| product.price
+   self.total = self.placements.map{ |placement| placement.product.price * placement.quantity }.sum
   end
 
   def build_placements_with_product_ids_and_quantities(product_ids_and_quantities)
